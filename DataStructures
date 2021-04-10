@@ -10,11 +10,10 @@ public class MainApplication {
 
 	public static void main(String[] args) {
 		FileManager fm = new FileManager();
-		fm.WriteFile("HELLO");
+		fm.WriteFile("HELLO Class");
 		System.out.println("Now read the file: ");
 		fm.ReadFile();
 		 
-
 		MyStack theStack = new MyStack(10);
 		theStack.push(new Student("John", "9349"));
 		theStack.push(new Student("Mary", "94119"));
