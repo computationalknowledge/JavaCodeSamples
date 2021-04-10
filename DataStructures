@@ -1,104 +1,109 @@
+import java.io.*;
 
 public class MainApplication {
 
 	String[] array = new String[100];
-	
+
 	public MainApplication() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		FileManager fm = new FileManager();
+		fm.WriteFile("HELLO");
+		System.out.println("Now read the file: ");
+		fm.ReadFile();
+		 
 
+		MyStack theStack = new MyStack(10);
+		theStack.push(new Student("John", "9349"));
+		theStack.push(new Student("Mary", "94119"));
+		theStack.push(new Student("Bill", "34349"));
+		theStack.push(new Student("Linda", "94944"));
+		theStack.push(new Student("Jordan", "12349"));
+
+		while (!theStack.isEmpty()) {
+			Student studentObject = (Student) theStack.pop();
+			System.out.println(studentObject.SayHello());
+			System.out.println(" ");
+		}
+		System.out.println("");
 	}
 
+}
+
+class Student {
+	String studentName;
+	String studentID;
+
+	public String SayHello() {
+		// System.out.println(this.studentName + " " + this.studentID);
+		return this.studentName + " " + this.studentID;
+	}
+
+	public Student(String sname, String sid) {
+		this.studentName = sname;
+		this.studentID = sid;
+
+	}
 }
 
 class MyStack {
-	   private int maxSize;
-	   private long[] stackArray;
-	   private int top;
-	   
-	   public MyStack(int s) {
-	      maxSize = s;
-	      stackArray = new long[maxSize];
-	      top = -1;
-	   }
-	   public void push(long j) {
-	      stackArray[++top] = j;
-	   }
-	   public long pop() {
-	      return stackArray[top--];
-	   }
-	   public long peek() {
-	      return stackArray[top];
-	   }
-	   public boolean isEmpty() {
-	      return (top == -1);
-	   }
-	   public boolean isFull() {
-	      return (top == maxSize - 1);
-	   }
-	   public static void main(String[] args) {
-	      MyStack theStack = new MyStack(10); 
-	      theStack.push(10);
-	      theStack.push(20);
-	      theStack.push(30);
-	      theStack.push(40);
-	      theStack.push(50);
-	      
-	      while (!theStack.isEmpty()) {
-	         long value = theStack.pop();
-	         System.out.print(value);
-	         System.out.print(" ");
-	      }
-	      System.out.println("");
-	   }
+	private int maxSize;
+	private Object[] stackArray;
+	private int top;
+
+	public MyStack(int s) {
+		maxSize = s;
+		stackArray = new Object[maxSize];
+		top = -1;
 	}
-  
-  Problem Description
-How to read a file ?
 
-Solution
-This example shows how to read a file using readLine method of BufferedReader class.
+	public void push(Object j) {
+		stackArray[++top] = j;
+	}
 
-import java.io.*;
+	public Object pop() {
+		return stackArray[top--];
+	}
 
-public class Main {
-   public static void main(String[] args)  {
-      try {
-         BufferedReader in = new BufferedReader(new FileReader("c:\\filename"));
-         String str;
-         
-         while ((str = in.readLine()) != null) {
-            System.out.println(str);
-         }
-         System.out.println(str);
-      } catch (IOException e) {
-      }
-   }
+	public Object peek() {
+		return stackArray[top];
+	}
+
+	public boolean isEmpty() {
+		return (top == -1);
+	}
+
+	public boolean isFull() {
+		return (top == maxSize - 1);
+	}
+
 }
-Result
-The above code sample will produce the following result.
 
-aString
-The following is another sample example of read a file in Java
+class FileManager {
+	public void ReadFile() {
+		try {
+			BufferedReader in = new BufferedReader(new FileReader("c:\\data\\filename.txt"));
+			String str;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
-public class BufferedReaderExample {
-   public static void main(String[] args) {
-      try (BufferedReader br = new BufferedReader(
-         new FileReader("C:\\\\Users\\\\TutorialsPoint7\\\\Desktop\\\\bbc.txt"))) { 
-         
-         String sCurrentLine;
-         while ((sCurrentLine = br.readLine()) != null) {
-				System.out.println(sCurrentLine);
-			} 
-      } catch (IOException e) {
-         e.printStackTrace();
-      } 
-   }
+			while ((str = in.readLine()) != null) {
+				System.out.println(str);
+			}
+			System.out.println(str);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+	}
+	
+	public void WriteFile(String aString) {
+	      try {
+	         BufferedWriter out = new BufferedWriter(new FileWriter("c:\\data\\filename.txt"));
+	         out.write(aString);
+	         out.close();
+	         System.out.println("File created successfully");
+	      }
+	      catch (IOException e) {
+	      }
+	   }
 }
